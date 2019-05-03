@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FileService{
+public class FileService
+{
     List<String> listOfFiles;
     public File folderPath;
 
@@ -23,6 +24,7 @@ public class FileService{
     public void listFilesForFolder(final File folder) 
     {
         for (final File fileEntry : folder.listFiles()) {
+            //skip hidden files.
             if(fileEntry.getName().startsWith(".")== false ){
                 {
                     if (fileEntry.isDirectory() ) 

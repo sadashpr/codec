@@ -17,35 +17,37 @@ public class FileHashService{
     public static void writeHash(String hashValue) 
     {
         try{
-            FileWriter fileWriter = new FileWriter("samplefile2.txt",true);
+            FileWriter fileWriter = new FileWriter("processedlogfile.txt",true);
             fileWriter.write(hashValue);
             fileWriter.write("\n"); 
             fileWriter.close();
         }
         catch (IOException e)
         {
-            System.out.println("file create failed. time to bail out.");
+            System.out.println("processed log file create/write failed.");
         }
     }
     public static boolean checkHash(String hashValue) 
     {
         String line;
-        try {
-
-        BufferedReader bufferreader = new BufferedReader(new FileReader("samplefile2.txt"));
-
-        while ((line = bufferreader.readLine()) != null) {     
-            if(line.equalsIgnoreCase(hashValue))
-                return false;  // hash found . file not to be processed
-            else 
-                continue;    
-        }
+        try 
+        {
+            BufferedReader bufferreader = new BufferedReader(new FileReader("processedlogfile.txt"));
+            while ((line = bufferreader.readLine()) != null) 
+            {     
+                if(line.equalsIgnoreCase(hashValue))
+                    return false;  // hash found in processed logfile. File not to be processed
+                else 
+                    continue;    
+            }
         } catch (FileNotFoundException ex) {
-             
+            System.out.println("unable to read processed log file. File may get reprocessed.");
+            return true;
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("unable to read processed log file. File may get reprocessed.");
+            return true;
         }
-        return true;// hash not found . file to be processed 
+        return true;// hash not found . file has to be processed 
     }
 
 }
