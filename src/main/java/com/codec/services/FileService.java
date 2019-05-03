@@ -20,24 +20,22 @@ public class FileService{
         listOfFiles = new ArrayList<String>();
     }
 
-    public void listFilesForFolder(final File folder) {
-    
-    for (final File fileEntry : folder.listFiles()) {
-        if(fileEntry.getName().startsWith(".")== false ){
-            {
-                if (fileEntry.isDirectory() ) 
+    public void listFilesForFolder(final File folder) 
+    {
+        for (final File fileEntry : folder.listFiles()) {
+            if(fileEntry.getName().startsWith(".")== false ){
                 {
-                    listFilesForFolder(fileEntry);
-                } 
-                else 
-                {
-                    //System.out.println(folder);
-                    //System.out.println(folder+"/"+fileEntry.getName());
-                    listOfFiles.add(folder+"/"+fileEntry.getName());
+                    if (fileEntry.isDirectory() ) 
+                    {
+                        listFilesForFolder(fileEntry);
+                    } 
+                    else 
+                    {
+                        listOfFiles.add(folder+"/"+fileEntry.getName());
+                    }
                 }
             }
-         }
-    }
+        }
     }
     public void printListOfFiles()
     {

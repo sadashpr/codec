@@ -13,6 +13,11 @@ public class CodecApplication {
 		fs.listFilesForFolder(fs.folderPath);
 		//fs.printListOfFiles();
 		AudioConverter.convertFiles(fs.getListOfFiles());
+		//FileHashService.writeHash("abcd");
+		//FileHashService.writeHash("abcd2");
+		//FileHashService.writeHash("abcd33");
+
+		//System.out.println(FileHashService.checkHash("abcd"));
 		SpringApplication.run(CodecApplication.class, args);
 	}
 }
