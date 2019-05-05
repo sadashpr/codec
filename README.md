@@ -3,8 +3,11 @@
 # prerequisites
 
 Java - to run the application
+
 ffmpeg - tool to convert files
+
 maven - to compile the code
+
 
 ######################
 
