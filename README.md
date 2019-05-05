@@ -30,6 +30,21 @@ CentOS
 
 ###########################
 
+# Optional Steps to install java and maven
+
+We can use brew to install Java. Homebrew is a package manager designed for installing UNIX tools and other open-source applications on Mac OS X. Use the below commands to install Homebrew ,then install Java 8 and Apache Maven 3.5.3 
+
+1. xcode-select --install   //install xcode command line utilities 
+2. ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"   //install homebrew
+3. brew cask install java8     
+4. brew install maven@3.5 
+
+You can check the installations are successfull using the the below commands
+
+1. java -version
+2. mvn -v
+
+###########################
 # Steps to run the codec java app
 
 1. Clone the repo using "git clone https://github.com/sadashpr/codec"
