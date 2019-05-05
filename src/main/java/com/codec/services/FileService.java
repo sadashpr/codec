@@ -23,20 +23,27 @@ public class FileService
 
     public void listFilesForFolder(final File folder) 
     {
-        for (final File fileEntry : folder.listFiles()) {
-            //skip hidden files.
-            if(fileEntry.getName().startsWith(".")== false ){
-                {
-                    if (fileEntry.isDirectory() ) 
+        if(folder.isDirectory())
+        {
+            for (final File fileEntry : folder.listFiles()) {
+                //skip hidden files.
+                if(fileEntry.getName().startsWith(".")== false ){
                     {
-                        listFilesForFolder(fileEntry);
-                    } 
-                    else 
-                    {
-                        listOfFiles.add(folder+"/"+fileEntry.getName());
+                        if (fileEntry.isDirectory() ) 
+                        {
+                            listFilesForFolder(fileEntry);
+                        } 
+                        else 
+                        {
+                            listOfFiles.add(folder+"/"+fileEntry.getName());
+                        }
                     }
                 }
             }
+        }
+        else{
+            System.out.println("ERROR: input path is not a valid directory");
+            System.exit(-1);
         }
     }
     public void printListOfFiles()

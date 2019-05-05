@@ -9,9 +9,15 @@ import com.codec.services.*;
 public class CodecApplication {
 
 	public static void main(String[] args) {
+		if(args.length== 1){
 		FileService fs = new FileService(args[0]);
 		fs.listFilesForFolder(fs.folderPath);
 		AudioConverter.convertFiles(fs.getListOfFiles());
 		SpringApplication.run(CodecApplication.class, args);
+		}
+		else
+		{
+			System.out.println("ERROR:wrong number of parameters supplied. Please run with single directory path as input parameter.");
+		}
 	}
 }
