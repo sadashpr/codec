@@ -49,7 +49,8 @@ public static void convertFile(String fileName)
         
         //create 2nd command to convert files.
         //use -c copy to make sure all codecs are intact.
-        String command2  = "ffmpeg -i "+ fileName + " -c copy "+ output + " "+newFilename;
+        //using -y to overwrite the output file is it exists, Handles error case when processedlogfile is deleted.
+        String command2  = "ffmpeg -y -i "+ fileName + " -c copy "+ output + " "+newFilename;
         Process proc2=Runtime.getRuntime().exec(command2);
         // need to wait for processing to complete
         int exitVal = proc2.waitFor();
