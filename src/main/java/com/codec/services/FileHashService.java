@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 @Service
@@ -17,7 +18,8 @@ public class FileHashService{
     public static void writeHash(String hashValue) 
     {
         try{
-            FileWriter fileWriter = new FileWriter("processedlogfile.txt",true);
+            //hard coded file name. Ideally can pick from ENV variables.
+            FileWriter fileWriter = new FileWriter("processedlogfile.txt",true);  
             fileWriter.write(hashValue);
             fileWriter.write("\n"); 
             fileWriter.close();
@@ -32,6 +34,7 @@ public class FileHashService{
         String line;
         try 
         {
+            //hard coded file name. Ideally can pick from ENV variables.
             BufferedReader bufferreader = new BufferedReader(new FileReader("processedlogfile.txt"));
             while ((line = bufferreader.readLine()) != null) 
             {     
@@ -50,4 +53,21 @@ public class FileHashService{
         return true;// hash not found . file has to be processed 
     }
 
+    public static String getHash(String file)
+    {
+    String s,hash = "";
+    try{
+            String command1 = "ffhash md5 " +file;
+            Process proc=Runtime.getRuntime().exec(command1);
+            
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            while ((s = stdInput.readLine()) != null) {
+                hash =s;
+            }
+        }
+        catch(java.io.IOException e){
+            System.out.println("Could not get hash of the file.returning empty string.");
+    }
+    return hash;
+    }
 }

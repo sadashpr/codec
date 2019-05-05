@@ -70,10 +70,10 @@ public static void convertFile(String fileName)
     }
     
     //save the hash of input file so that it doesnt get processed again
-    String hash1 = AudioConverter.getHash(fileName);
+    String hash1 = FileHashService.getHash(fileName);
     FileHashService.writeHash(hash1);
     //save the hash of output file so that it doesnt get processed again
-    String hash2 = AudioConverter.getHash(newFilename);
+    String hash2 = FileHashService.getHash(newFilename);
     FileHashService.writeHash(hash2);
 } 
 
@@ -81,7 +81,7 @@ public static void convertFiles(List<String> fileNames)
 {
     for(String file: fileNames){
         //get hash of file to check if already processed.
-        String hash = AudioConverter.getHash(file);
+        String hash = FileHashService.getHash(file);
         if(FileHashService.checkHash(hash))
         {
             AudioConverter.convertFile(file);
@@ -101,25 +101,6 @@ public static String getOutPutFilename(String origFilename)
     //create output folder if it doesnt exist.
     createOutputFolder(origFilename);
     return newFilename.toString();
-}
-
-
-public static String getHash(String file)
-{
-    String s,hash = "";
-    try{
-            String command1 = "ffhash md5 " +file;
-            Process proc=Runtime.getRuntime().exec(command1);
-            
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            while ((s = stdInput.readLine()) != null) {
-                hash =s;
-            }
-        }
-        catch(java.io.IOException e){
-            System.out.println("Could not get hash of the file.returning empty string.");
-    }
-    return hash;
 }
 
 public static void createOutputFolder(String path)
